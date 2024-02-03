@@ -9,8 +9,15 @@ func swap(a *int, b *int) {
 }
 
 func main() {
-	var x, y int
-	fmt.Scanln(&x, &y)
-	swap(&x, &y)
-	fmt.Println(x, y)
+
+	var i, n, x, y int
+
+	fmt.Scanln(&n)
+
+	for i = 0; i < n; i++ {
+		fmt.Scanln(&x, &y)
+		swap(&x, &y)
+		fmt.Println(x, y)
+	}
+
 }
