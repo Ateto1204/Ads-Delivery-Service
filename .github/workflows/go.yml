@@ -22,7 +22,7 @@ jobs:
         go-version: '1.20'
 
     - name: Build
-      run: go build ./"pointer swap"/"pointer swap.go"
+      run: go build -v "./pointer swap/pointer swap.go"
 
     - name: Run
       run: ./"pointer swap"/"pointer swap"
