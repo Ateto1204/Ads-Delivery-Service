@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func swap(a *int, b *int) {
-	var tmp int = *a
+	tmp := *a // var tmp *int
 	*a = *b
 	*b = tmp
 }
@@ -11,6 +11,9 @@ func swap(a *int, b *int) {
 func main() {
 
 	var i, n, x, y int
+	const tipkit = "Enter times: " // immutable constant
+
+	fmt.Println(tipkit)
 
 	fmt.Scanln(&n)
 
