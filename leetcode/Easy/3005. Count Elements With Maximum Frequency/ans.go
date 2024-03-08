@@ -16,17 +16,15 @@ func max(a, b int) int {
 func maxFrequencyElements(nums []int) int {
 	var cnt [105]int
 	mx := 0
-	i := 0
-	sz := len(nums)
-	for i = 0; i < sz; i++ {
-		cnt[nums[i]]++
+	for _, num := range nums {
+		cnt[num]++
 	}
-	for i = 1; i <= 100; i++ {
-		mx = max(mx, cnt[i])
+	for _, count := range cnt {
+		mx = max(mx, count)
 	}
 	ans := 0
-	for i = 1; i <= 100; i++ {
-		if cnt[i] == mx {
+	for _, count := range cnt {
+		if count == mx {
 			ans += mx
 		}
 	}
