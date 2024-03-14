@@ -1,3 +1,11 @@
+/*
+ * Project: 2024 Dcard Backend Intern Assignment
+ * Author: Ateto
+ * Description: Recommend advertisements to customers
+ * according to some information of the customers.
+ *
+ */
+
 package main
 
 import (
@@ -67,9 +75,11 @@ func listAdsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Sorting by EndAt in ascending order
-	sort.Slice(activeAds, func(i, j int) bool {
-		return activeAds[i].EndAt.Before(activeAds[j].EndAt)
-	})
+	if len(activeAds) > 1 {
+		sort.Slice(activeAds, func(i, j int) bool {
+			return activeAds[i].EndAt.Before(activeAds[j].EndAt)
+		})
+	}
 
 	// Pagination
 	offset, limit := getPaginationParams(r)
