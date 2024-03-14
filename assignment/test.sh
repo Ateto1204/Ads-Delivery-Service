@@ -84,3 +84,5 @@ curl -X POST -H "Content-Type: application/json" \
 
 curl -X GET -H "Content-Type: application/json" \
   "http://localhost:8080/api/v1/ad?offset=10&limit=3&age=24&gender=F&country=TW&platform=ios"
+
+exit
