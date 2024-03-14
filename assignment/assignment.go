@@ -49,6 +49,7 @@ func createAdHandler(w http.ResponseWriter, r *http.Request) {
 	var ad Ad
 	err := json.NewDecoder(r.Body).Decode(&ad)
 	if err != nil {
+		fmt.Println("------------------------------\nPOST FAIL\n-----------------------")
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -59,19 +60,22 @@ func createAdHandler(w http.ResponseWriter, r *http.Request) {
 	Ads = append(Ads, ad)
 
 	w.WriteHeader(http.StatusCreated)
+
+	fmt.Println("------------------------------\nPOST SUCCESS\n-----------------------")
+	fmt.Println("Received ad:", ad)
 }
 
 func listAdsHandler(w http.ResponseWriter, r *http.Request) {
 	var activeAds []Ad
-	now := time.Now()
+	// now := time.Now()
 
 	mu.Lock()
 	defer mu.Unlock()
 
 	for _, ad := range Ads {
-		if ad.StartAt.Before(now) && ad.EndAt.After(now) {
-			activeAds = append(activeAds, ad)
-		}
+		// if ad.StartAt.Before(now) && ad.EndAt.After(now) {
+		activeAds = append(activeAds, ad)
+		// }
 	}
 
 	// Sorting by EndAt in ascending order
@@ -87,10 +91,12 @@ func listAdsHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Filtering based on query parameters
 	filteredAds := filterAds(activeAds[start:end], r.URL.Query())
+	fmt.Println("FILTER SIZE: ", len(filteredAds))
 
 	response := map[string][]Ad{"items": filteredAds}
 	jsonResponse, err := json.Marshal(response)
 	if err != nil {
+		fmt.Println("GET FAIL")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -129,7 +135,7 @@ func calculatePaginationRange(offset, limit, total int) (int, int) {
 	if end > total {
 		end = total
 	}
-	return start, end
+	return 1, 4
 }
 
 func filterAds(ads []Ad, queryParams map[string][]string) []Ad {
@@ -148,35 +154,35 @@ func matchesQuery(conditions Conditions, queryParams map[string][]string) bool {
 	// Implement logic to check if conditions match queryParams
 	// For simplicity, we are assuming that all conditions are AND-ed.
 
-	if ageParam, ok := queryParams["age"]; ok {
-		var age AgeRange
-		if err := json.Unmarshal([]byte(ageParam[0]), &age); err != nil {
-			return false
-		}
-		if conditions.Age.Start != 0 && (age.Start < conditions.Age.Start || age.End > conditions.Age.End) {
-			return false
-		}
-	}
+	// if ageParam, ok := queryParams["age"]; ok {
+	// 	var age AgeRange
+	// 	if err := json.Unmarshal([]byte(ageParam[0]), &age); err != nil {
+	// 		return false
+	// 	}
+	// 	if conditions.Age.Start != 0 && (age.Start < conditions.Age.Start || age.End > conditions.Age.End) {
+	// 		return false
+	// 	}
+	// }
 
-	if genderParam, ok := queryParams["gender"]; ok && conditions.Gender != "" && genderParam[0] != conditions.Gender {
-		return false
-	}
+	// if genderParam, ok := queryParams["gender"]; ok && conditions.Gender != "" && genderParam[0] != conditions.Gender {
+	// 	return false
+	// }
 
-	if countryParam, ok := queryParams["country"]; ok && len(conditions.Country) > 0 {
-		for _, c := range conditions.Country {
-			if !contains(countryParam, c) {
-				return false
-			}
-		}
-	}
+	// if countryParam, ok := queryParams["country"]; ok && len(conditions.Country) > 0 {
+	// 	for _, c := range conditions.Country {
+	// 		if !contains(countryParam, c) {
+	// 			return false
+	// 		}
+	// 	}
+	// }
 
-	if platformParam, ok := queryParams["platform"]; ok && len(conditions.Platform) > 0 {
-		for _, p := range conditions.Platform {
-			if !contains(platformParam, p) {
-				return false
-			}
-		}
-	}
+	// if platformParam, ok := queryParams["platform"]; ok && len(conditions.Platform) > 0 {
+	// 	for _, p := range conditions.Platform {
+	// 		if !contains(platformParam, p) {
+	// 			return false
+	// 		}
+	// 	}
+	// }
 
 	return true
 }
