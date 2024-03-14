@@ -29,6 +29,5 @@ jobs:
     - name: Run tests
       run: | 
         cd ./assignment
-        ./assignment
         ./test.sh
         echo "FINISH"
