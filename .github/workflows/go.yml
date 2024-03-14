@@ -26,5 +26,7 @@ jobs:
         cd ./assignment
         go build -v ./assignment.go
 
-    - name: Run
-      run: ./assignment/assignment
+    - name: Run tests
+      run: | 
+        cd ./assignment
+        ./test.sh
