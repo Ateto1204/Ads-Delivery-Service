@@ -23,9 +23,8 @@ jobs:
 
     - name: Build
       run: | 
-        go mode init github.com/Ateto1204/Golang-trainging
-        go get -u github.com/gorilla/mux
-        go build -v ./assignment/assignment.go
+        cd ./assignment
+        go build -v ./assignment.go
 
     - name: Run
       run: ./assignment/assignment
