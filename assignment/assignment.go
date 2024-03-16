@@ -1,8 +1,10 @@
 /*
  * Project: 2024 Dcard Backend Intern Assignment
  * Author: Ateto
+ *
  * Description: Recommend advertisements to customers
- * according to some information of the customers.
+ * 				according to some information of the
+ * 				customers.
  *
  */
 
@@ -29,8 +31,10 @@ type Ad struct {
 
 // Conditions represent the conditions for displaying an advertisement.
 type Conditions struct {
-	Age      AgeRange `json:"age,omitempty"`
+	// Age      AgeRange `json:"age,omitempty"`
 	Gender   string   `json:"gender,omitempty"`
+	AgeStart int      `json:"ageStart"`
+	AgeEnd   int      `json:"ageEnd"`
 	Country  []string `json:"country,omitempty"`
 	Platform []string `json:"platform,omitempty"`
 }
