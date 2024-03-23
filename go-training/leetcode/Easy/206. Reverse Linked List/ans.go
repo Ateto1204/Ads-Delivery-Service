@@ -12,20 +12,12 @@
  */
 
 func reverseList(head *ListNode) *ListNode {
-	list := []int{}
-	dummy := head
-	for dummy != nil {
-		list = append(list, dummy.Val)
-		dummy = dummy.Next
+	var prev *ListNode
+	for head != nil {
+		nxt := head.Next
+		head.Next = prev
+		prev = head
+		head = nxt
 	}
-	n := len(list)
-	if n <= 1 {
-		return head
-	}
-	dummy = head
-	for i := n - 1; i >= 0; i-- {
-		dummy.Val = list[i]
-		dummy = dummy.Next
-	}
-	return head
+	return prev
 }
