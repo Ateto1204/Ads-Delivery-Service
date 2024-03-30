@@ -168,11 +168,9 @@ func matchesQuery(conditions Conditions, queryParams map[string][]string) bool {
 	if ageParam, ok := queryParams["age"]; ok {
 		var age int
 		if err := json.Unmarshal([]byte(ageParam[0]), &age); err != nil {
-			fmt.Println("Age decode failed", age, ageParam)
 			return false
 		}
 		if conditions.Age.Start != 0 && (age < conditions.Age.Start || age > conditions.Age.End) {
-			fmt.Println(conditions.Age, "xxx", age)
 			return false
 		}
 	}
@@ -181,27 +179,38 @@ func matchesQuery(conditions Conditions, queryParams map[string][]string) bool {
 		return false
 	}
 
-	// if countryParam, ok := queryParams["country"]; ok && len(conditions.Country) > 0 {
-	// 	for _, c := range conditions.Country {
-	// 		if !contains(countryParam, c) {
-	// 			return false
-	// 		}
-	// 	}
-	// }
+	if countryParam, ok := queryParams["country"]; ok && len(conditions.Country) > 0 {
+		found := false
+		for _, country := range conditions.Country {
+			if contains(countryParam, country) {
+				found = true
+				break
+			}
+		}
+		if !found {
+			return false
+		}
+	}
 
-	// if platformParam, ok := queryParams["platform"]; ok && len(conditions.Platform) > 0 {
-	// 	for _, p := range conditions.Platform {
-	// 		if !contains(platformParam, p) {
-	// 			return false
-	// 		}
-	// 	}
-	// }
+	if platformParam, ok := queryParams["platform"]; ok && len(conditions.Platform) > 0 {
+		found := false
+		for _, platform := range conditions.Platform {
+			if contains(platformParam, platform) {
+				found = true
+				break
+			}
+		}
+		if !found {
+			return false
+		}
+	}
 
 	return true
 }
 
 func contains(slice []string, target string) bool {
 	for _, value := range slice {
+		// fmt.Println(target, value)
 		if value == target {
 			return true
 		}
