@@ -29,6 +29,11 @@ type Ad struct {
 	Conditions Conditions `json:"conditions"`
 }
 
+type ResponseAd struct {
+	Title string    `json:"title"`
+	EndAt time.Time `json:"endAt"`
+}
+
 // Conditions represent the conditions for displaying an advertisement.
 type Conditions struct {
 	// Age      AgeRange `json:"age,omitempty"`
@@ -98,7 +103,7 @@ func listAdsHandler(w http.ResponseWriter, r *http.Request) {
 	filteredAds := filterAds(activeAds[start:end], r.URL.Query())
 	fmt.Println("FILTER SIZE: ", len(filteredAds))
 
-	response := map[string][]Ad{"items": filteredAds}
+	response := map[string][]ResponseAd{"items": filteredAds}
 	jsonResponse, err := json.Marshal(response)
 	if err != nil {
 		fmt.Println("GET FAIL")
@@ -143,12 +148,13 @@ func calculatePaginationRange(offset, limit, total int) (int, int) {
 	return 0, end
 }
 
-func filterAds(ads []Ad, queryParams map[string][]string) []Ad {
-	var filteredAds []Ad
+func filterAds(ads []Ad, queryParams map[string][]string) []ResponseAd {
+	var filteredAds []ResponseAd
 
 	for _, ad := range ads {
 		if matchesQuery(ad.Conditions, queryParams) {
-			filteredAds = append(filteredAds, ad)
+			responseAd := ResponseAd{ad.Title, ad.EndAt}
+			filteredAds = append(filteredAds, responseAd)
 		}
 	}
 
