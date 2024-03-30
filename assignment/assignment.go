@@ -71,15 +71,16 @@ func createAdHandler(w http.ResponseWriter, r *http.Request) {
 
 func listAdsHandler(w http.ResponseWriter, r *http.Request) {
 	var activeAds []Ad
-	// now := time.Now()
+	now := time.Now()
+	fmt.Println("Current time: ", now)
 
 	mu.Lock()
 	defer mu.Unlock()
 
 	for _, ad := range Ads {
-		// if ad.StartAt.Before(now) && ad.EndAt.After(now) {
-		activeAds = append(activeAds, ad)
-		// }
+		if ad.StartAt.Before(now) && ad.EndAt.After(now) {
+			activeAds = append(activeAds, ad)
+		}
 	}
 
 	// Sorting by EndAt in ascending order
@@ -139,7 +140,7 @@ func calculatePaginationRange(offset, limit, total int) (int, int) {
 	if end > total {
 		end = total
 	}
-	return 1, 4
+	return 0, end
 }
 
 func filterAds(ads []Ad, queryParams map[string][]string) []Ad {
