@@ -36,10 +36,8 @@ type ResponseAd struct {
 
 // Conditions represent the conditions for displaying an advertisement.
 type Conditions struct {
-	Age    AgeRange `json:"age,omitempty"`
-	Gender string   `json:"gender,omitempty"`
-	// AgeStart int      `json:"ageStart"`
-	// AgeEnd   int      `json:"ageEnd"`
+	Age      AgeRange `json:"age,omitempty"`
+	Gender   string   `json:"gender,omitempty"`
 	Country  []string `json:"country,omitempty"`
 	Platform []string `json:"platform,omitempty"`
 }
@@ -210,7 +208,6 @@ func matchesQuery(conditions Conditions, queryParams map[string][]string) bool {
 
 func contains(slice []string, target string) bool {
 	for _, value := range slice {
-		// fmt.Println(target, value)
 		if value == target {
 			return true
 		}
