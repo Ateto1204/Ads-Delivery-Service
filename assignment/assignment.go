@@ -177,9 +177,9 @@ func matchesQuery(conditions Conditions, queryParams map[string][]string) bool {
 		}
 	}
 
-	// if genderParam, ok := queryParams["gender"]; ok && conditions.Gender != "" && genderParam[0] != conditions.Gender {
-	// 	return false
-	// }
+	if genderParam, ok := queryParams["gender"]; ok && conditions.Gender != "" && genderParam[0] != conditions.Gender {
+		return false
+	}
 
 	// if countryParam, ok := queryParams["country"]; ok && len(conditions.Country) > 0 {
 	// 	for _, c := range conditions.Country {
@@ -200,9 +200,9 @@ func matchesQuery(conditions Conditions, queryParams map[string][]string) bool {
 	return true
 }
 
-func contains(slice []string, value string) bool {
-	for _, v := range slice {
-		if v == value {
+func contains(slice []string, target string) bool {
+	for _, value := range slice {
+		if value == target {
 			return true
 		}
 	}

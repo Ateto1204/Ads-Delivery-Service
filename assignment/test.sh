@@ -7,6 +7,7 @@ curl -X POST -H "Content-Type: application/json" \
       "conditions": {
          "ageStart": 20,
          "ageEnd": 30,
+         "gender" : "F",
          "country": ["TW", "JP"],
          "platform": ["ios"]
       }
@@ -20,6 +21,7 @@ curl -X POST -H "Content-Type: application/json" \
       "conditions": {
          "ageStart": 20,
          "ageEnd": 30,
+         "gender" : "F",
          "country": ["TW", "JP"],
          "platform": ["android", "ios"]
       }
@@ -33,6 +35,7 @@ curl -X POST -H "Content-Type: application/json" \
       "conditions": {
          "ageStart": 20,
          "ageEnd": 30,
+         "gender" : "F",
          "country": ["TW", "JP"],
          "platform": ["android"]
       }
@@ -46,6 +49,7 @@ curl -X POST -H "Content-Type: application/json" \
       "conditions": {
          "ageStart": 28,
          "ageEnd": 30,
+         "gender" : "F",
          "country": ["TW", "JP"],
          "platform": ["android"]
       }
@@ -59,6 +63,7 @@ curl -X POST -H "Content-Type: application/json" \
       "conditions": {
          "ageStart": 20,
          "ageEnd": 21,
+         "gender" : "M",
          "country": ["TW", "JP"],
          "platform": ["android", "ios"]
       }
@@ -72,9 +77,12 @@ curl -X POST -H "Content-Type: application/json" \
       "conditions": {
          "ageStart": 20,
          "ageEnd": 30,
+         "gender" : "F", 
          "country": ["TW", "JP"],
          "platform": ["android", "ios"]
       }
    }'
 curl -X GET -H "Content-Type: application/json" \
    "http://localhost:8080/api/v1/ad?offset=10&limit=3&age=24&gender=F&country=TW&platform=ios"
+curl -X GET -H "Content-Type: application/json" \
+   "http://localhost:8080/api/v1/ad?offset=10&limit=3&age=24&gender=M&country=JP&platform=android"
