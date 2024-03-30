@@ -36,10 +36,10 @@ type ResponseAd struct {
 
 // Conditions represent the conditions for displaying an advertisement.
 type Conditions struct {
-	// Age      AgeRange `json:"age,omitempty"`
-	Gender   string   `json:"gender,omitempty"`
-	AgeStart int      `json:"ageStart"`
-	AgeEnd   int      `json:"ageEnd"`
+	Age    AgeRange `json:"age,omitempty"`
+	Gender string   `json:"gender,omitempty"`
+	// AgeStart int      `json:"ageStart"`
+	// AgeEnd   int      `json:"ageEnd"`
 	Country  []string `json:"country,omitempty"`
 	Platform []string `json:"platform,omitempty"`
 }
@@ -165,15 +165,17 @@ func matchesQuery(conditions Conditions, queryParams map[string][]string) bool {
 	// Implement logic to check if conditions match queryParams
 	// For simplicity, we are assuming that all conditions are AND-ed.
 
-	// if ageParam, ok := queryParams["age"]; ok {
-	// 	var age AgeRange
-	// 	if err := json.Unmarshal([]byte(ageParam[0]), &age); err != nil {
-	// 		return false
-	// 	}
-	// 	if conditions.Age.Start != 0 && (age.Start < conditions.Age.Start || age.End > conditions.Age.End) {
-	// 		return false
-	// 	}
-	// }
+	if ageParam, ok := queryParams["age"]; ok {
+		var age int
+		if err := json.Unmarshal([]byte(ageParam[0]), &age); err != nil {
+			fmt.Println("Age decode failed", age, ageParam)
+			return false
+		}
+		if conditions.Age.Start != 0 && (age < conditions.Age.Start || age > conditions.Age.End) {
+			fmt.Println(conditions.Age, "xxx", age)
+			return false
+		}
+	}
 
 	// if genderParam, ok := queryParams["gender"]; ok && conditions.Gender != "" && genderParam[0] != conditions.Gender {
 	// 	return false
