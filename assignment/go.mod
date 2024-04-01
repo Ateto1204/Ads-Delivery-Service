@@ -1,4 +1,4 @@
-module github.com/Ateto1204/Golang-training
+module github.com/Ateto1204/main
 
 go 1.21.6
 
