@@ -24,7 +24,7 @@ jobs:
     - name: Build
       run: | 
         cd ./assignment
-        go build -v ./assignment.go
+        go build -v .
 
     - name: Run tests
       run: | 
