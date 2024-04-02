@@ -12,22 +12,22 @@ on:
 jobs:
 
   build:
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v3
 
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.21.6'
+        go-version: '1.22.1'
 
     - name: Build
       run: | 
         cd ./assignment
-        go build -v .
+        go build -o main ./src/*.go
 
     - name: Run tests
       run: | 
         cd ./assignment
-        ./test.sh
+        go test -cover
         echo "FINISH"
