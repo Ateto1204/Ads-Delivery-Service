@@ -6,6 +6,7 @@
  * 				according to some information of the
  * 				customers.
  *
+ * go build -o main ./src/*.go
  */
 
 package main
