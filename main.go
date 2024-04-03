@@ -23,6 +23,7 @@ var Ads []Ad
 var mu sync.Mutex
 
 func main() {
+
 	r := mux.NewRouter()
 
 	r.HandleFunc("/api/v1/ad", createAdHandler).Methods("POST")
