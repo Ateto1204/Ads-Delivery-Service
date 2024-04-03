@@ -1,4 +1,4 @@
-module github.com/Ateto1204/main
+module github.com/Ateto1204/Ads-Delivery-Service
 
 go 1.22.1
 
