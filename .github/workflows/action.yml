@@ -23,11 +23,9 @@ jobs:
 
     - name: Build
       run: | 
-        cd ./assignment
-        go build -o main ./src/*.go
+        go build *.go
 
     - name: Run tests
       run: | 
-        cd ./assignment
         go test -cover
         echo "FINISH"
