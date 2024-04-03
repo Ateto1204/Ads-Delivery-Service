@@ -7,7 +7,7 @@
  *
  */
 
-package main
+package v1
 
 import (
 	"encoding/json"
@@ -55,36 +55,4 @@ func listAdsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonResponse)
-}
-
-func getPaginationParams(r *http.Request) (int, int) {
-	offset := 1
-	limit := 5
-
-	if offsetParam := r.URL.Query().Get("offset"); offsetParam != "" {
-		fmt.Sscanf(offsetParam, "%d", &offset)
-	}
-
-	if limitParam := r.URL.Query().Get("limit"); limitParam != "" {
-		fmt.Sscanf(limitParam, "%d", &limit)
-	}
-
-	// Validate offset and limit
-	if offset < 1 {
-		offset = 1
-	}
-	if limit < 1 || limit > 100 {
-		limit = 5
-	}
-
-	return offset, limit
-}
-
-func calculatePaginationRange(offset, limit, total int) (int, int) {
-	start := (offset - 1) * limit
-	end := start + limit
-	if end > total {
-		end = total
-	}
-	return 0, end
 }
