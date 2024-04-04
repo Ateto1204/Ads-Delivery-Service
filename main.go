@@ -15,11 +15,12 @@ import (
 	"net/http"
 	"sync"
 
+	"github.com/Ateto1204/Ads-Delivery-Service/models"
 	"github.com/gorilla/mux"
 )
 
 // Ads is an in-memory store for advertisements.
-var Ads []Ad
+var Ads []models.Ad
 var mu sync.Mutex
 
 func main() {

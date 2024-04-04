@@ -11,12 +11,13 @@ package main
 
 import (
 	"encoding/json"
-	"log"
 	"net/http"
+
+	"github.com/Ateto1204/Ads-Delivery-Service/models"
 )
 
 func createAdHandler(w http.ResponseWriter, r *http.Request) {
-	var ad Ad
+	var ad models.Ad
 	err := json.NewDecoder(r.Body).Decode(&ad)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -29,6 +30,4 @@ func createAdHandler(w http.ResponseWriter, r *http.Request) {
 	Ads = append(Ads, ad)
 
 	w.WriteHeader(http.StatusCreated)
-
-	log.Println(ad)
 }

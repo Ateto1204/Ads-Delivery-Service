@@ -23,9 +23,9 @@ jobs:
 
     - name: Build
       run: | 
-        go build *.go
+        go build .
 
     - name: Run tests
       run: | 
-        go test -cover
+        go test
         echo "FINISH"

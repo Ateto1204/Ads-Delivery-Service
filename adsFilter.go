@@ -9,14 +9,18 @@
 
 package main
 
-import "encoding/json"
+import (
+	"encoding/json"
 
-func filterAds(ads []Ad, queryParams map[string][]string) []ResponseAd {
-	var filteredAds []ResponseAd
+	"github.com/Ateto1204/Ads-Delivery-Service/models"
+)
+
+func filterAds(ads []models.Ad, queryParams map[string][]string) []models.ResponseAd {
+	var filteredAds []models.ResponseAd
 
 	for _, ad := range ads {
 		if matchesQuery(ad.Conditions, queryParams) {
-			responseAd := ResponseAd{ad.Title, ad.EndAt}
+			responseAd := models.ResponseAd{ad.Title, ad.EndAt}
 			filteredAds = append(filteredAds, responseAd)
 		}
 	}
@@ -24,10 +28,7 @@ func filterAds(ads []Ad, queryParams map[string][]string) []ResponseAd {
 	return filteredAds
 }
 
-func matchesQuery(conditions Conditions, queryParams map[string][]string) bool {
-	// Implement logic to check if conditions match queryParams
-	// For simplicity, we are assuming that all conditions are AND-ed.
-
+func matchesQuery(conditions models.Conditions, queryParams map[string][]string) bool {
 	if ageParam, ok := queryParams["age"]; ok {
 		var age int
 		if err := json.Unmarshal([]byte(ageParam[0]), &age); err != nil {

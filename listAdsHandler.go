@@ -15,10 +15,12 @@ import (
 	"net/http"
 	"sort"
 	"time"
+
+	"github.com/Ateto1204/Ads-Delivery-Service/models"
 )
 
 func listAdsHandler(w http.ResponseWriter, r *http.Request) {
-	var activeAds []Ad
+	var activeAds []models.Ad
 	now := time.Now()
 
 	mu.Lock()
@@ -44,7 +46,7 @@ func listAdsHandler(w http.ResponseWriter, r *http.Request) {
 	// Filtering based on query parameters
 	filteredAds := filterAds(activeAds[start:end], r.URL.Query())
 
-	response := map[string][]ResponseAd{"items": filteredAds}
+	response := map[string][]models.ResponseAd{"items": filteredAds}
 	jsonResponse, err := json.Marshal(response)
 	if err != nil {
 		fmt.Println("GET FAIL")
