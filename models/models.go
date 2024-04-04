@@ -11,6 +11,8 @@ package models
 import "time"
 
 type Ad struct {
+	Offset     int        `json:"offset"`
+	Limit      int        `json:"limit"`
 	Title      string     `json:"title"`
 	StartAt    time.Time  `json:"startAt"`
 	EndAt      time.Time  `json:"endAt"`

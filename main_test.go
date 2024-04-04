@@ -14,8 +14,8 @@ import (
 func TestCreateAdHandler(t *testing.T) {
 	ad := models.Ad{
 		Title:   "Test Ad",
-		StartAt: time.Now(),
-		EndAt:   time.Now().Add(24 * time.Hour),
+		StartAt: time.Date(2024, time.April, 1, 0, 0, 0, 0, time.UTC),
+		EndAt:   time.Date(2024, time.April, 8, 0, 0, 0, 0, time.UTC),
 		Conditions: models.Conditions{
 			Age: models.AgeRange{
 				Start: 18,

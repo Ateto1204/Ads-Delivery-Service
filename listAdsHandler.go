@@ -11,7 +11,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"sort"
 	"time"
@@ -49,7 +48,6 @@ func listAdsHandler(w http.ResponseWriter, r *http.Request) {
 	response := map[string][]models.ResponseAd{"items": filteredAds}
 	jsonResponse, err := json.Marshal(response)
 	if err != nil {
-		fmt.Println("GET FAIL")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
