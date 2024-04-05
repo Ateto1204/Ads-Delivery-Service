@@ -7,7 +7,7 @@
  *
  */
 
-package v1
+package main
 
 import (
 	"encoding/json"
@@ -24,10 +24,10 @@ func createAdHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	repo.muxLock()
-	repo.muxUnlock()
+	mu.Lock()
+	defer mu.Unlock()
 
-	repo.addAd(ad)
+	Ads = append(Ads, ad)
 
 	w.WriteHeader(http.StatusCreated)
 }
