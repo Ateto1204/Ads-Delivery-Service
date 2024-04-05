@@ -13,22 +13,11 @@ package main
 
 import (
 	"net/http"
-	"sync"
-
-	"github.com/Ateto1204/Ads-Delivery-Service/models"
-	"github.com/gorilla/mux"
 )
-
-// Ads is an in-memory store for advertisements.
-var Ads []models.Ad
-var mu sync.Mutex
 
 func main() {
 
-	r := mux.NewRouter()
-
-	r.HandleFunc("/api/v1/ad", createAdHandler).Methods("POST")
-	r.HandleFunc("/api/v1/ad", listAdsHandler).Methods("GET")
+	r := setUpRouter()
 
 	http.Handle("/", r)
 
